@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 type SceneId = "origin" | "new-start" | "archive" | "signal" | "settings";
@@ -251,9 +252,18 @@ export default function Home() {
           onBlur={restMenu}
         >
           <div>
-            <div className="mb-8 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-red-100/80 2xl:mb-10 2xl:text-xs">
-              <span className="h-2 w-2 bg-red-500 shadow-[0_0_22px_rgba(255,59,48,0.9)]" />
-              SpaceTomato Cinema
+            <div className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-red-100/80 2xl:mb-10 2xl:text-xs">
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 bg-red-500 shadow-[0_0_22px_rgba(255,59,48,0.9)]" />
+                SpaceTomato Cinema
+              </div>
+              <Link
+                className="publisher-link"
+                href="/company"
+                aria-label="주식회사 럿지 회사 소개 페이지로 이동"
+              >
+                LUDGI Inc.
+              </Link>
             </div>
 
             <div className="scene-copy-panel mb-6 max-w-[430px] xl:max-w-[560px] 2xl:mb-9 2xl:max-w-[660px]">

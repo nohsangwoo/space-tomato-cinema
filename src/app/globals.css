@@ -42,6 +42,27 @@ button {
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.65);
 }
 
+.publisher-link {
+  border: 1px solid rgba(135, 230, 255, 0.22);
+  color: rgba(213, 244, 255, 0.72);
+  display: inline-flex;
+  letter-spacing: 0.22em;
+  padding: 0.45rem 0.7rem;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.publisher-link:hover {
+  background: rgba(89, 210, 255, 0.08);
+  border-color: rgba(135, 230, 255, 0.64);
+  box-shadow: 0 0 24px rgba(89, 210, 255, 0.12);
+  color: white;
+}
+
 .hud-panel {
   box-shadow:
     inset 0 0 34px rgba(125, 231, 255, 0.05),
@@ -124,6 +145,295 @@ button {
 
 .transmission-button:active {
   transform: translateY(1px);
+}
+
+.company-page {
+  background:
+    radial-gradient(circle at 70% 8%, rgba(114, 224, 255, 0.12), transparent 25%),
+    radial-gradient(circle at 15% 26%, rgba(255, 62, 48, 0.12), transparent 23%),
+    #020507;
+}
+
+.company-hero {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.32)),
+    url("/media/inquiry_end_frame.png");
+  background-position: center;
+  background-size: cover;
+  min-height: 760px;
+}
+
+.company-wordmark,
+.company-page a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.company-page a:hover {
+  color: rgba(145, 232, 255, 0.95);
+}
+
+.company-signal {
+  border-left: 2px solid rgba(126, 225, 255, 0.36);
+  color: rgba(230, 246, 255, 0.52);
+  display: grid;
+  gap: 1rem;
+  font-size: clamp(1rem, 2vw, 1.7rem);
+  font-weight: 900;
+  letter-spacing: 0.26em;
+  padding-left: 1.4rem;
+}
+
+.company-band {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 60%),
+    rgba(255, 255, 255, 0.018);
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.company-metric {
+  border-left: 2px solid rgba(255, 75, 62, 0.82);
+  padding-left: 1.2rem;
+}
+
+.company-metric p {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+
+.company-metric span,
+.company-section-label p {
+  color: rgba(211, 233, 241, 0.58);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.company-info-grid {
+  display: grid;
+  gap: 1px;
+}
+
+.company-info-grid div {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: minmax(120px, 0.28fr) 1fr;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.company-info-grid dt,
+.company-footer-list h2 {
+  color: rgba(132, 227, 255, 0.68);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.company-info-grid dd {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.company-capability,
+.company-track,
+.company-stack {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(2, 7, 10, 0.54);
+  padding: 1.3rem;
+}
+
+.company-capability span {
+  color: rgba(255, 80, 66, 0.9);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+}
+
+.company-capability h3,
+.company-track h3,
+.company-stack h3 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  margin-top: 0.8rem;
+}
+
+.company-capability p {
+  color: rgba(231, 242, 247, 0.62);
+  line-height: 1.8;
+  margin-top: 0.8rem;
+}
+
+.company-track ol {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.company-track li {
+  color: rgba(255, 255, 255, 0.82);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 40px 1fr;
+  line-height: 1.6;
+}
+
+.company-track li span {
+  color: rgba(132, 227, 255, 0.72);
+  font-weight: 900;
+}
+
+.company-stack div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.3rem;
+}
+
+.company-stack span {
+  border: 1px solid rgba(135, 230, 255, 0.22);
+  color: rgba(224, 244, 250, 0.72);
+  padding: 0.45rem 0.62rem;
+}
+
+.company-footer-list {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.company-footer-list a,
+.company-footer-list p {
+  color: rgba(255, 255, 255, 0.64);
+}
+
+.asset-page {
+  background:
+    radial-gradient(circle at 72% 22%, rgba(101, 218, 255, 0.14), transparent 24%),
+    radial-gradient(circle at 22% 68%, rgba(255, 67, 53, 0.12), transparent 24%),
+    #020507;
+}
+
+.asset-panel {
+  border: 1px solid rgba(135, 230, 255, 0.16);
+  background: rgba(2, 9, 13, 0.72);
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.asset-panel h2 {
+  color: rgba(135, 230, 255, 0.78);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.asset-panel p {
+  color: rgba(230, 246, 255, 0.58);
+  line-height: 1.8;
+}
+
+.asset-favicon {
+  align-items: center;
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 50% 46%, #ff4b3e 0%, #9a1718 44%, #160506 78%);
+  color: white;
+  display: flex;
+  font-size: 3rem;
+  font-weight: 950;
+  justify-content: center;
+  letter-spacing: -0.08em;
+  max-width: 180px;
+}
+
+.asset-og {
+  aspect-ratio: 1200 / 630;
+  background:
+    radial-gradient(circle at 68% 42%, rgba(255, 64, 54, 0.42), transparent 26%),
+    radial-gradient(circle at 22% 22%, rgba(100, 220, 255, 0.26), transparent 22%),
+    linear-gradient(135deg, #020306 0%, #071017 46%, #140506 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+.asset-og::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.16)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.04) 0,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+}
+
+.asset-og-orb {
+  background: radial-gradient(circle at 44% 42%, #ff4939 0%, #7d1718 42%, #1b0708 72%);
+  border-radius: 999px;
+  box-shadow: 0 0 120px rgba(255, 65, 52, 0.44);
+  height: 58%;
+  position: absolute;
+  right: 7%;
+  top: 12%;
+  width: 30%;
+}
+
+.asset-og-copy {
+  display: grid;
+  gap: 1.5rem;
+  padding: 7% 7%;
+  position: relative;
+  z-index: 1;
+}
+
+.asset-og-copy p {
+  color: #9ceeff;
+  font-size: clamp(0.8rem, 2vw, 1.55rem);
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.asset-og-copy h1 {
+  font-size: clamp(3rem, 8vw, 5.8rem);
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+.asset-og-copy h2 {
+  color: rgba(232, 248, 255, 0.82);
+  font-size: clamp(1rem, 3vw, 2.1rem);
+  font-weight: 600;
+}
+
+.asset-og-copy div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.asset-og-copy span {
+  border: 1px solid rgba(135, 230, 255, 0.28);
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 800;
+  padding: 0.45rem 0.7rem;
 }
 
 .scene-copy-panel {
