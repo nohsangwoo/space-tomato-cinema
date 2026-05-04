@@ -48,6 +48,88 @@ button {
     0 18px 80px rgba(0, 0, 0, 0.36);
 }
 
+.inquiry-console {
+  border: 1px solid rgba(150, 225, 255, 0.22);
+  background:
+    linear-gradient(135deg, rgba(9, 18, 25, 0.78), rgba(4, 7, 11, 0.54)),
+    linear-gradient(90deg, rgba(116, 220, 255, 0.08), transparent 54%, rgba(255, 65, 54, 0.08));
+  box-shadow:
+    inset 0 0 42px rgba(105, 218, 255, 0.08),
+    0 22px 90px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.inquiry-field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.inquiry-field span {
+  color: rgba(204, 244, 255, 0.62);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.inquiry-input {
+  width: 100%;
+  border: 1px solid rgba(173, 226, 255, 0.18);
+  background: rgba(1, 8, 13, 0.62);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  outline: none;
+  padding: 0.88rem 0.95rem;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.inquiry-input::placeholder {
+  color: rgba(229, 244, 255, 0.28);
+}
+
+.inquiry-input:focus {
+  border-color: rgba(121, 226, 255, 0.7);
+  background: rgba(3, 14, 21, 0.82);
+  box-shadow:
+    inset 0 0 24px rgba(86, 211, 255, 0.06),
+    0 0 0 2px rgba(86, 211, 255, 0.12);
+}
+
+.transmission-button {
+  min-height: 3.1rem;
+  border: 1px solid rgba(255, 92, 78, 0.72);
+  background:
+    linear-gradient(90deg, rgba(255, 63, 48, 0.92), rgba(183, 35, 37, 0.82)),
+    rgba(255, 63, 48, 0.8);
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  padding: 0 1.45rem;
+  text-transform: uppercase;
+  transition:
+    filter 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.transmission-button:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 32px rgba(255, 61, 49, 0.25);
+}
+
+.transmission-button:active {
+  transform: translateY(1px);
+}
+
+.scene-copy-panel {
+  min-height: 190px;
+}
+
 .korean-title {
   overflow-wrap: normal;
   word-break: keep-all;
@@ -77,6 +159,138 @@ button {
 @media (max-width: 1023px) {
   .game-menu {
     min-height: calc(100vh - 48px);
+  }
+}
+
+@media (min-width: 640px) {
+  .scene-copy-panel {
+    min-height: 198px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scene-copy-panel {
+    min-height: 190px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .scene-copy-panel {
+    min-height: 190px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .scene-copy-panel {
+    min-height: 248px;
+  }
+
+  .scene-title {
+    font-size: 4.8rem;
+    line-height: 0.94;
+  }
+
+  .scene-deck {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
+
+  .main-sequence-nav {
+    gap: 0.7rem;
+  }
+
+  .game-menu-button {
+    min-height: 4.8rem;
+  }
+
+  .game-menu-index {
+    font-size: 0.85rem;
+  }
+
+  .game-menu-label {
+    font-size: 1.85rem;
+  }
+
+  .game-menu-hint {
+    font-size: 0.82rem;
+  }
+
+  .inquiry-input {
+    font-size: 1.05rem;
+    padding: 1rem 1.05rem;
+  }
+}
+
+@media (min-width: 1900px) and (min-height: 900px) {
+  .scene-copy-panel {
+    min-height: 278px;
+  }
+
+  .scene-eyebrow {
+    font-size: 0.9rem;
+  }
+
+  .scene-title {
+    font-size: 5.45rem;
+    line-height: 0.92;
+  }
+
+  .scene-deck {
+    font-size: 1.28rem;
+    line-height: 2rem;
+  }
+
+  .main-sequence-nav {
+    gap: 0.85rem;
+  }
+
+  .game-menu-button {
+    grid-template-columns: 60px 1fr;
+    min-height: 5.35rem;
+  }
+
+  .game-menu-index {
+    font-size: 0.92rem;
+  }
+
+  .game-menu-label {
+    font-size: 2.08rem;
+  }
+
+  .game-menu-hint {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 2300px) and (min-height: 1100px) {
+  .scene-copy-panel {
+    min-height: 320px;
+  }
+
+  .scene-title {
+    font-size: 6.15rem;
+  }
+
+  .scene-deck {
+    font-size: 1.38rem;
+    line-height: 2.15rem;
+  }
+
+  .game-menu-button {
+    grid-template-columns: 68px 1fr;
+    min-height: 6rem;
+  }
+
+  .game-menu-index {
+    font-size: 1rem;
+  }
+
+  .game-menu-label {
+    font-size: 2.38rem;
+  }
+
+  .game-menu-hint {
+    font-size: 0.98rem;
   }
 }
 
