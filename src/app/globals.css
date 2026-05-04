@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --background: #020204;
+  --foreground: #f7f7f2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #020204;
+    --foreground: #f7f7f2;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+
+.game-menu {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.65);
+}
+
+.hud-panel {
+  box-shadow:
+    inset 0 0 34px rgba(125, 231, 255, 0.05),
+    0 18px 80px rgba(0, 0, 0, 0.36);
+}
+
+.korean-title {
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.korean-copy {
+  overflow-wrap: break-word;
+  word-break: keep-all;
+}
+
+.scanline-layer {
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 70, 58, 0.06), transparent 18%, rgba(120, 220, 255, 0.05) 72%, transparent);
+  background-size:
+    100% 4px,
+    100% 100%;
+  mix-blend-mode: screen;
+}
+
+::selection {
+  background: rgba(255, 75, 55, 0.82);
+  color: white;
+}
+
+@media (max-width: 1023px) {
+  .game-menu {
+    min-height: calc(100vh - 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  .scanline-layer {
+    opacity: 0.2;
+  }
+}
