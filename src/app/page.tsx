@@ -169,8 +169,8 @@ const scenes: Scene[] = [
   },
 ];
 
-function getTransitionVideo(nextId: SceneId) {
-  return nextId === "origin" ? null : commandTransitionVideo;
+function getTransitionVideo(currentId: SceneId, nextId: SceneId) {
+  return currentId === "origin" && nextId !== "origin" ? commandTransitionVideo : null;
 }
 
 export default function Home() {
@@ -218,7 +218,7 @@ export default function Home() {
     if (playPromise) {
       void playPromise.catch(() => undefined);
     }
-  }, [activeId, activeScene.loopVideo]);
+  }, [activeScene.loopVideo]);
 
   function wakeMenu() {
     if (menuTimer.current) {
@@ -250,12 +250,19 @@ export default function Home() {
       return;
     }
 
-    const keyedTransition = getTransitionVideo(nextId);
+    const keyedTransition = getTransitionVideo(activeId, nextId);
     setPendingId(nextId);
 
     if (keyedTransition) {
       setIsTransitionReady(false);
       setTransitionVideo(keyedTransition);
+      return;
+    }
+
+    if (activeId !== "origin" && nextId !== "origin") {
+      setActiveId(nextId);
+      setPendingId(null);
+      restMenu();
       return;
     }
 
@@ -295,7 +302,7 @@ export default function Home() {
     <main className="relative min-h-screen overflow-x-hidden overflow-y-auto bg-black text-white lg:overflow-hidden">
       <video
         ref={loopVideoRef}
-        key={`${activeScene.id}-${activeScene.loopVideo}`}
+        key={activeScene.loopVideo}
         className="absolute inset-0 h-full w-full object-cover"
         src={activeScene.loopVideo}
         poster={activeScene.poster}
