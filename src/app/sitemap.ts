@@ -2,7 +2,13 @@ import type { MetadataRoute } from "next";
 import { getPublishedPosts } from "@/lib/blog/db";
 import { siteUrl } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+
 const lastModified = new Date("2026-05-05T00:00:00+09:00");
+
+function toAbsoluteAssetUrl(src: string) {
+  return src.startsWith("http") ? src : `${siteUrl}${src}`;
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const postsResult = await getPublishedPosts();
@@ -21,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: new Date(post.updatedAt),
           changeFrequency: "monthly" as const,
           priority: 0.78,
-          images: [`${siteUrl}${post.coverImage}`],
+          images: [toAbsoluteAssetUrl(post.coverImage)],
         })),
       ]
     : [];

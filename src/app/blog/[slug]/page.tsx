@@ -24,6 +24,10 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
+function toAbsoluteAssetUrl(src: string) {
+  return src.startsWith("http") ? src : `${siteUrl}${src}`;
+}
+
 export async function generateMetadata({
   params,
 }: BlogDetailPageProps): Promise<Metadata> {
@@ -181,7 +185,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             "@type": "BlogPosting",
             headline: post.title,
             description: post.excerpt,
-            image: `${siteUrl}${post.coverImage}`,
+            image: toAbsoluteAssetUrl(post.coverImage),
             url: `${siteUrl}/blog/${post.slug}`,
             datePublished: post.publishedAt,
             dateModified: post.updatedAt,
