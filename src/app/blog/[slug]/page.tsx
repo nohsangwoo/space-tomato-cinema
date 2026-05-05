@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogPostContent } from "@/components/blog-post-content";
+import { BlogUnavailableCard } from "@/components/blog-unavailable-card";
 import { LudgiAttributionCard } from "@/components/ludgi-attribution-card";
 import { getPostBySlug, getPublishedPosts } from "@/lib/blog/db";
 import { company, siteUrl } from "@/lib/site";
@@ -27,17 +28,19 @@ export async function generateMetadata({
   params,
 }: BlogDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const postResult = await getPostBySlug(slug);
 
-  if (!post) {
+  if (!postResult.ok) {
     return {
-      title: "블로그 글을 찾을 수 없습니다 | SpaceTomato Cinema",
+      title: "콘텐츠를 불러올 수 없습니다 | SpaceTomato Cinema",
       robots: {
         index: false,
         follow: false,
       },
     };
   }
+
+  const post = postResult.post;
 
   return {
     title: post.seo.title,
@@ -73,16 +76,55 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const posts = await getPublishedPosts();
+  const postsResult = await getPublishedPosts();
 
-  return posts.map((post) => ({
+  if (!postsResult.ok) {
+    return [];
+  }
+
+  return postsResult.posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const postResult = await getPostBySlug(slug);
+
+  if (!postResult.ok) {
+    if (postResult.reason === "not-found") {
+      notFound();
+    }
+
+    return (
+      <main className="blog-page blog-detail-page">
+        <section className="blog-detail-hero">
+          <nav className="blog-topline" aria-label="블로그 상세 상단 이동">
+            <Link href="/blog">Signal Archive</Link>
+            <Link href="/">Main Interface</Link>
+            <Link href="/company">LUDGI Inc.</Link>
+          </nav>
+
+          <div className="blog-detail-grid">
+            <div className="blog-detail-copy">
+              <p>Content Relay Offline</p>
+              <h1>콘텐츠를 불러올 수 없습니다</h1>
+              <span>
+                SpaceTomato Cinema 블로그는 Neon DB에 저장된 콘텐츠만
+                표시합니다.
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className="blog-detail-body">
+          <BlogUnavailableCard reason={postResult.reason} slug={slug} />
+        </section>
+      </main>
+    );
+  }
+
+  const post = postResult.post;
 
   if (!post) {
     notFound();

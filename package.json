@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "blog:migrate": "node scripts/blog/migrate.mjs",
-    "blog:seed": "node scripts/blog/upsert-post.mjs content/blog/cosmic-tomato-frontline.json",
+    "blog:seed": "node scripts/blog/seed-all.mjs",
     "blog:upsert": "node scripts/blog/upsert-post.mjs"
   },
   "dependencies": {

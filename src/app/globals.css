@@ -786,6 +786,45 @@ button {
   transform: translateY(-3px);
 }
 
+.blog-unavailable-card {
+  border: 1px solid rgba(255, 91, 78, 0.28);
+  background:
+    linear-gradient(135deg, rgba(26, 5, 7, 0.76), rgba(3, 8, 12, 0.72)),
+    linear-gradient(90deg, rgba(255, 61, 49, 0.08), transparent 55%, rgba(104, 219, 255, 0.08));
+  display: grid;
+  gap: 1rem;
+  max-width: 760px;
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+}
+
+.blog-unavailable-card p {
+  color: rgba(255, 123, 111, 0.82);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.blog-unavailable-card h2 {
+  color: white;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.blog-unavailable-card span {
+  color: rgba(231, 244, 249, 0.72);
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.blog-unavailable-card code {
+  border-left: 2px solid rgba(126, 226, 255, 0.44);
+  color: rgba(190, 237, 249, 0.72);
+  font-size: 0.84rem;
+  padding-left: 0.9rem;
+}
+
 .blog-card a {
   color: inherit;
   display: grid;

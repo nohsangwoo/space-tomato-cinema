@@ -1,5 +1,4 @@
 import { neon } from "@neondatabase/serverless";
-import { fallbackPosts } from "./fallback-posts";
 import type { BlogContentBlock, BlogPost, BlogPostStatus } from "./types";
 
 type BlogPostRow = {
@@ -20,12 +19,49 @@ type BlogPostRow = {
   content_blocks: unknown;
 };
 
-const blogDatabaseUrl =
-  process.env.DATABASE_URL ??
-  process.env.POSTGRES_URL ??
-  process.env.POSTGRES_PRISMA_URL;
+export type BlogDataReason =
+  | "missing-database"
+  | "database-error"
+  | "empty"
+  | "not-found";
+
+export type BlogListResult =
+  | {
+      ok: true;
+      posts: BlogPost[];
+    }
+  | {
+      ok: false;
+      posts: [];
+      reason: Exclude<BlogDataReason, "not-found">;
+    };
+
+export type BlogPostResult =
+  | {
+      ok: true;
+      post: BlogPost;
+    }
+  | {
+      ok: false;
+      post: null;
+      reason: BlogDataReason;
+    };
+
+function getBlogDatabaseUrl() {
+  return (
+    process.env.DATABASE_URL ??
+    process.env.POSTGRES_URL ??
+    process.env.POSTGRES_PRISMA_URL
+  );
+}
+
+export function hasBlogDatabaseConnection() {
+  return Boolean(getBlogDatabaseUrl());
+}
 
 function getSql() {
+  const blogDatabaseUrl = getBlogDatabaseUrl();
+
   if (!blogDatabaseUrl) {
     return null;
   }
@@ -91,11 +127,15 @@ function sortPosts(posts: BlogPost[]) {
   );
 }
 
-async function readPostsFromDatabase() {
+export async function getPublishedPosts(): Promise<BlogListResult> {
   const sql = getSql();
 
   if (!sql) {
-    return null;
+    return {
+      ok: false,
+      posts: [],
+      reason: "missing-database",
+    };
   }
 
   try {
@@ -122,18 +162,39 @@ async function readPostsFromDatabase() {
       ORDER BY published_at DESC
     `) as BlogPostRow[];
 
-    return rows.map(mapRowToPost);
+    const posts = sortPosts(rows.map(mapRowToPost));
+
+    if (posts.length === 0) {
+      return {
+        ok: false,
+        posts: [],
+        reason: "empty",
+      };
+    }
+
+    return {
+      ok: true,
+      posts,
+    };
   } catch (error) {
     console.error("Failed to read blog posts from Neon.", error);
-    return null;
+    return {
+      ok: false,
+      posts: [],
+      reason: "database-error",
+    };
   }
 }
 
-async function readPostFromDatabase(slug: string) {
+export async function getPostBySlug(slug: string): Promise<BlogPostResult> {
   const sql = getSql();
 
   if (!sql) {
-    return null;
+    return {
+      ok: false,
+      post: null,
+      reason: "missing-database",
+    };
   }
 
   try {
@@ -161,29 +222,24 @@ async function readPostFromDatabase(slug: string) {
       LIMIT 1
     `) as BlogPostRow[];
 
-    return rows[0] ? mapRowToPost(rows[0]) : null;
+    if (!rows[0]) {
+      return {
+        ok: false,
+        post: null,
+        reason: "not-found",
+      };
+    }
+
+    return {
+      ok: true,
+      post: mapRowToPost(rows[0]),
+    };
   } catch (error) {
     console.error(`Failed to read blog post "${slug}" from Neon.`, error);
-    return null;
+    return {
+      ok: false,
+      post: null,
+      reason: "database-error",
+    };
   }
-}
-
-export async function getPublishedPosts() {
-  const databasePosts = await readPostsFromDatabase();
-
-  if (databasePosts) {
-    return sortPosts(databasePosts.length > 0 ? databasePosts : fallbackPosts);
-  }
-
-  return sortPosts(fallbackPosts);
-}
-
-export async function getPostBySlug(slug: string) {
-  const databasePost = await readPostFromDatabase(slug);
-
-  if (databasePost) {
-    return databasePost;
-  }
-
-  return fallbackPosts.find((post) => post.slug === slug) ?? null;
 }

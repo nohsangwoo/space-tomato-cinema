@@ -5,7 +5,26 @@ import { siteUrl } from "@/lib/site";
 const lastModified = new Date("2026-05-05T00:00:00+09:00");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getPublishedPosts();
+  const postsResult = await getPublishedPosts();
+  const posts = postsResult.ok ? postsResult.posts : [];
+  const blogRoutes: MetadataRoute.Sitemap = postsResult.ok
+    ? [
+        {
+          url: `${siteUrl}/blog`,
+          lastModified,
+          changeFrequency: "weekly",
+          priority: 0.86,
+          images: [`${siteUrl}/og-image.png`],
+        },
+        ...posts.map((post) => ({
+          url: `${siteUrl}/blog/${post.slug}`,
+          lastModified: new Date(post.updatedAt),
+          changeFrequency: "monthly" as const,
+          priority: 0.78,
+          images: [`${siteUrl}${post.coverImage}`],
+        })),
+      ]
+    : [];
 
   return [
     {
@@ -22,19 +41,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.82,
       images: [`${siteUrl}/media/inquiry_end_frame.png`],
     },
-    {
-      url: `${siteUrl}/blog`,
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 0.86,
-      images: [`${siteUrl}/og-image.png`],
-    },
-    ...posts.map((post) => ({
-      url: `${siteUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.updatedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.78,
-      images: [`${siteUrl}${post.coverImage}`],
-    })),
+    ...blogRoutes,
   ];
 }
