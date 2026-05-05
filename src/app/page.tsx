@@ -264,6 +264,13 @@ export default function Home() {
               >
                 LUDGI Inc.
               </Link>
+              <Link
+                className="publisher-link"
+                href="/blog"
+                aria-label="SpaceTomato Cinema 블로그로 이동"
+              >
+                Blog
+              </Link>
             </div>
 
             <div className="scene-copy-panel mb-6 max-w-[430px] xl:max-w-[560px] 2xl:mb-9 2xl:max-w-[660px]">
@@ -326,6 +333,10 @@ export default function Home() {
               <span>Loop Armed</span>
               <span>{pendingId ? "Switching" : transmissionState}</span>
             </div>
+            <p className="max-w-[340px] text-[10px] leading-5 tracking-[0.16em] text-white/34">
+              Produced by 럿지 · 주식회사 럿지 · 주식회사럿지 · LUDGI · LUDGI
+              Inc.
+            </p>
           </div>
         </aside>
 

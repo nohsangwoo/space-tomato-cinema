@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "blog:migrate": "node scripts/blog/migrate.mjs",
+    "blog:seed": "node scripts/blog/upsert-post.mjs content/blog/cosmic-tomato-frontline.json",
+    "blog:upsert": "node scripts/blog/upsert-post.mjs"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"
